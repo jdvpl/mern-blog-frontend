@@ -15,3 +15,31 @@ export const registerUserAction = createAsyncThunk(
     }
   }
 );
+
+// slices
+const userSlices = createSlice({
+  name: "users",
+  initialState: {
+    userAuth: "login",
+  },
+  extraReducers: (builder) => {
+    builder.addCase(registerUserAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(registerUserAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.registered = action?.payload;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(registerUserAction.rejected, (state, action) => {
+      state.loading = false;
+      state.appErr = action?.payload?.msg;
+      state.serverErr = action?.payload?.msg;
+    });
+  },
+});
+
+export default userSlices.reducer;
