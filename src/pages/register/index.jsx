@@ -1,10 +1,10 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { PasswordIcon, UserIconPlus } from "../../svg";
-// import { registerUserAction } from "../../../redux/slices/users/usersSlices";
+import { registerUserAction } from "../../redux/slices/users/usersSlices";
 
 //Form schema
 const formSchema = Yup.object({
@@ -18,7 +18,7 @@ const formSchema = Yup.object({
 //-------------------------------
 const Register = () => {
   //dispath
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   //formik
   const formik = useFormik({
@@ -30,15 +30,14 @@ const Register = () => {
     },
     onSubmit: (values) => {
       //dispath the action
-      // dispatch(registerUserAction(values));
-      console.log(values);
+      dispatch(registerUserAction(values));
     },
     validationSchema: formSchema,
   });
 
   //select state from store
-  // const storeData = useSelector((store) => store?.users);
-  // const { loading, appErr, serverErr, registered } = storeData;
+  const storeData = useSelector((store) => store?.users);
+  const { loading, appErr, serverErr, registered } = storeData;
 
   //redirect
   // if (registered) {
@@ -62,14 +61,12 @@ const Register = () => {
             <div className="w-full lg:w-1/2 px-4">
               <div className="px-6 lg:px-20 py-12 lg:py-24 bg-gray-600 rounded-lg">
                 <form onSubmit={formik.handleSubmit}>
-                  <h3 className="mb-10 text-2xl text-white font-bold font-heading">
+                  <h3 className="mb-10  text-white font-bold font-heading">
                     Register Account
-                    {/* display error message
+                    {/* display error message */}
                     {appErr || serverErr ? (
-                      <div className="text-red-400">
-                        {serverErr} {appErr}
-                      </div>
-                    ) : null} */}
+                      <div className="text-red-400">{serverErr}</div>
+                    ) : null}
                   </h3>
 
                   {/* First name */}
@@ -141,12 +138,12 @@ const Register = () => {
                   </div>
                   {/* Err msg*/}
                   <div className="text-red-400 mb-2">
-                    {/* {formik.touched.password && formik.errors.password} */}
+                    {formik.touched.password && formik.errors.password}
                   </div>
 
                   <div className="inline-flex mb-10"></div>
 
-                  {/* Check for loading
+                  {/* Check for loading */}
                   {loading ? (
                     <button
                       disabled
@@ -161,13 +158,7 @@ const Register = () => {
                     >
                       Register
                     </button>
-                  )} */}
-                  <button
-                    type="submit"
-                    className="py-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full transition duration-200"
-                  >
-                    Register
-                  </button>
+                  )}
                 </form>
               </div>
             </div>

@@ -8,6 +8,7 @@ export const registerUserAction = createAsyncThunk(
       const { data } = await clientAxios.post("/users/register", user);
       return data;
     } catch (e) {
+      console.log(e.response);
       const errorData = e.response.data.errors
         ? e.response.data.errors[0].msg
         : e.response.data.msg;
@@ -36,8 +37,8 @@ const userSlices = createSlice({
     });
     builder.addCase(registerUserAction.rejected, (state, action) => {
       state.loading = false;
-      state.appErr = action?.payload?.msg;
-      state.serverErr = action?.payload?.msg;
+      state.appErr = action?.payload;
+      state.serverErr = action?.payload;
     });
   },
 });
