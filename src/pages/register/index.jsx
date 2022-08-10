@@ -40,9 +40,9 @@ const Register = () => {
   const { loading, appErr, serverErr, registered } = storeData;
 
   //redirect
-  // if (registered) {
-  //   navigate("/profile");
-  // }
+  if (registered) {
+    navigate("/profile");
+  }
   return (
     <section className="relative py-20 2xl:py-40 bg-gray-800 overflow-hidden">
       <div className="relative container px-4 mx-auto">
