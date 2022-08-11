@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import poster from "/assets/img/poster.png";
 import { LockIcon, PasswordLoginIcon } from "../../svg";
-// import { loginUserAction } from "../../../redux/slices/users/usersSlices";
+import { loginUserAction } from "../../redux/slices/users/usersSlices";
 
 //Form schema
 const formSchema = Yup.object({
@@ -24,7 +24,7 @@ const Login = () => {
     },
     onSubmit: (values) => {
       //dispath the action
-      // dispatch(loginUserAction(values));
+      dispatch(loginUserAction(values));
     },
     validationSchema: formSchema,
   });
@@ -35,6 +35,7 @@ const Login = () => {
   // if (userAuth) {
   //   navigate("/profile");
   // }
+
   return (
     <>
       <section className="min-h-screen relative py-20 2xl:py-40 bg-gray-900 overflow-hidden">
@@ -52,15 +53,13 @@ const Login = () => {
                 <div className="px-6 lg:px-12 py-12 lg:py-24 bg-white shadow-lg rounded-lg">
                   {/* Form */}
                   <form onSubmit={formik.handleSubmit}>
-                    <h3 className="mb-10 text-2xl font-bold font-heading">
+                    <h3 className="mb-10 text-2xl font-bold font-heading text-center">
                       {/* Header */}
                       Login to your Account
                     </h3>
                     {/* display err */}
                     {serverErr || appErr ? (
-                      <h2 className="text-red-500">
-                        {serverErr} - {appErr}
-                      </h2>
+                      <h2 className="text-red-500 text-center">{serverErr}</h2>
                     ) : null}
                     <div className="flex items-center pl-6 mb-3 border border-gray-50 bg-white rounded-full">
                       <span className="inline-block pr-3 border-r border-gray-50">
@@ -92,6 +91,7 @@ const Login = () => {
                         className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
                         type="password"
                         placeholder=" Password"
+                        autoComplete="off"
                       />
                     </div>
                     {/* Err msg */}
