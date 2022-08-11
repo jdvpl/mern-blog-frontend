@@ -10,10 +10,10 @@ const Header = () => {
     <>
       {!userAuth ? (
         <PublicNavbar />
-      ) : userAuth ? (
-        <PrivateNavbar />
+      ) : isAdmin ? (
+        <AdminNavbar />
       ) : (
-        isAdmin && <AdminNavbar />
+        <PrivateNavbar />
       )}
     </>
   );
